@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../tail5"
+		},
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Grupo-sos-2-main"
+	}
+}

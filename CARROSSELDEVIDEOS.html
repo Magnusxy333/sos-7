@@ -1,0 +1,174 @@
+        <div class="carrossel-container">
+          <h1 class="carrossel-title"> Vídeos Informativos </h1>
+          
+          <div class="category-tabs">
+              <button class="category-btn active" data-category="all">Todos</button>
+              <button class="category-btn" data-category="autodefesa">Autodefesa</button>
+              <button class="category-btn" data-category="socorros">Primeiros Socorros</button>
+          </div>
+          
+          <div class="carrossel">
+              <!-- Vídeo 1 - Autodefesa -->
+              <div class="video-card" data-category="autodefesa">
+                  <div class="video-container">
+                      <iframe src="https://www.youtube.com/watch?v=e2JIV58CppM" allowfullscreen></iframe>
+                  </div>
+                  <div class="video-info">
+                      <h3>Técnicas Básicas de Autodefesa</h3>
+                      <p>Aprenda movimentos essenciais para se proteger em situações de risco.</p>
+                  </div>
+              </div>
+              
+              <!-- Vídeo 2 - Primeiros Socorros -->
+              <div class="video-card" data-category="socorros">
+                  <div class="video-container">
+                      <iframe src="https://www.youtube.com/watch?v=XIH8v579xDo" allowfullscreen></iframe>
+                  </div>
+                  <div class="video-info">
+                      <h3>Primeiros Socorros - Controle de hemorragia externa </h3>
+                      <p>Como agir rapidamente em casos de engasgo em adultos e crianças.</p>
+                  </div>
+              </div>
+              
+              <!-- Vídeo 3 - Autodefesa -->
+              <div class="video-card" data-category="autodefesa">
+                  <div class="video-container">
+                      <iframe src="https://www.youtube.com/embed/7vL1M8aQZ7M" allowfullscreen></iframe>
+                  </div>
+                  <div class="video-info">
+                      <h3>Defesa Pessoal para Mulheres</h3>
+                      <p>Técnicas específicas para mulheres se defenderem de agressores.</p>
+                  </div>
+              </div>
+              
+              <!-- Vídeo 4 - Primeiros Socorros -->
+              <div class="video-card" data-category="socorros">
+                  <div class="video-container">
+                      <iframe src="https://www.youtube.com/embed/7vL1M8aQZ7M" allowfullscreen></iframe>
+                  </div>
+                  <div class="video-info">
+                      <h3>Como Fazer Reanimação Cardiopulmonar</h3>
+                      <p>Passo a passo para realizar RCP corretamente em emergências.</p>
+                  </div>
+              </div>
+              
+              <!-- Vídeo 5 - Autodefesa -->
+              <div class="video-card" data-category="autodefesa">
+                  <div class="video-container">
+                      <iframe src="https://www.youtube.com/embed/5MgBikgcWnY" allowfullscreen></iframe>
+                  </div>
+                  <div class="video-info">
+                      <h3>Como se Defender de Agressões</h3>
+                      <p>Técnicas simples e eficazes para se livrar de agarramentos.</p>
+                  </div>
+              </div>
+              
+              <!-- Vídeo 6 - Primeiros Socorros -->
+              <div class="video-card" data-category="socorros">
+                  <div class="video-container">
+                      <iframe src="https://www.youtube.com/embed/8S6cOQPX9Dk" allowfullscreen></iframe>
+                  </div>
+                  <div class="video-info">
+                      <h3>Primeiros Socorros em Queimaduras</h3>
+                      <p>O que fazer (e o que não fazer) em casos de queimaduras.</p>
+                  </div>
+              </div>
+          </div>
+          
+          <button class="scroll-btn prev">
+              <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="scroll-btn next">
+              <i class="fas fa-chevron-right"></i>
+          </button>
+          
+          <div class="carrossel-nav">
+              <button class="nav-btn active"></button>
+              <button class="nav-btn"></button>
+              <button class="nav-btn"></button>
+              <button class="nav-btn"></button>
+              <button class="nav-btn"></button>
+              <button class="nav-btn"></button>
+          </div>
+      </div>
+  
+      <script>
+          document.addEventListener('DOMContentLoaded', function() {
+              const carrossel = document.querySelector('.carrossel');
+              const cards = document.querySelectorAll('.video-card');
+              const navBtns = document.querySelectorAll('.nav-btn');
+              const prevBtn = document.querySelector('.prev');
+              const nextBtn = document.querySelector('.next');
+              const categoryBtns = document.querySelectorAll('.category-btn');
+              
+              let currentIndex = 0;
+              const cardWidth = cards[0].offsetWidth + 20; // inclui gap
+              
+              // Função para atualizar a posição do carrossel
+              function updateCarrossel() {
+                  carrossel.scrollTo({
+                      left: currentIndex * cardWidth,
+                      behavior: 'smooth'
+                  });
+                  
+                  // Atualiza botões de navegação
+                  navBtns.forEach((btn, index) => {
+                      btn.classList.toggle('active', index === currentIndex);
+                  });
+              }
+              
+              // Navegação por botões
+              navBtns.forEach((btn, index) => {
+                  btn.addEventListener('click', () => {
+                      currentIndex = index;
+                      updateCarrossel();
+                  });
+              });
+              
+              // Botões anterior/próximo
+              prevBtn.addEventListener('click', () => {
+                  if (currentIndex > 0) {
+                      currentIndex--;
+                      updateCarrossel();
+                  }
+              });
+              
+              nextBtn.addEventListener('click', () => {
+                  if (currentIndex < cards.length - 1) {
+                      currentIndex++;
+                      updateCarrossel();
+                  }
+              });
+              
+              // Filtro por categoria
+              categoryBtns.forEach(btn => {
+                  btn.addEventListener('click', () => {
+                      const category = btn.dataset.category;
+                      
+                      // Atualiza botões ativos
+                      categoryBtns.forEach(b => b.classList.remove('active'));
+                      btn.classList.add('active');
+                      
+                      // Filtra os vídeos
+                      cards.forEach(card => {
+                          if (category === 'all' || card.dataset.category === category) {
+                              card.style.display = 'block';
+                          } else {
+                              card.style.display = 'none';
+                          }
+                      });
+                  });
+              });
+              
+              // Atualiza a largura do card quando a janela é redimensionada
+              window.addEventListener('resize', () => {
+                  cardWidth = cards[0].offsetWidth + 20;
+                  updateCarrossel();
+              });
+          });
+      </script>
+  
+
+
+        </div>
+      </div>
